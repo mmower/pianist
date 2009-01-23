@@ -10,9 +10,14 @@
 
 
 @interface StaveView : NSView {
-  BOOL showNote;
-  BOOL nameNote;
-  int note;
+  NSString      *trebleClef;
+  NSSize        trebleClefSize;
+  NSString      *bassClef;
+  NSSize        bassClefSize;
+  NSDictionary  *textAttributes;
+  BOOL          showNote;
+  BOOL          nameNote;
+  int           note;
 }
 
 @property BOOL showNote;

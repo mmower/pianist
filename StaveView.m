@@ -8,6 +8,8 @@
 
 #import "StaveView.h"
 
+static unichar gclef[2] = {0xD834,0xDD1E};
+static unichar fclef[2] = {0xD834,0xDD22};
 
 @implementation StaveView
 
@@ -17,6 +19,14 @@
         // Initialization code here.
     }
     return self;
+}
+
+- (void)awakeFromNib {
+  textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:@"Apple Symbols" size:96],NSFontAttributeName,nil];
+  trebleClef     = [NSString stringWithCharacters:gclef length:2];
+  trebleClefSize = [trebleClef sizeWithAttributes:textAttributes];
+  bassClef       = [NSString stringWithCharacters:fclef length:2];
+  bassClefSize   = [bassClef sizeWithAttributes:textAttributes];
 }
 
 @dynamic showNote;
@@ -99,12 +109,14 @@
     [path setLineWidth:3];
     [path stroke];
     
-    
-    
     path = [NSBezierPath bezierPath];
     [path appendBezierPathWithOvalInRect:noteFrame];
     [path fill];
   }
+  
+  // Draw Treble Clef
+  NSRect clefRect = NSMakeRect( bounds.origin.x + (trebleClefSize.width/2), (8*spacing)-(trebleClefSize.height/8), trebleClefSize.width, trebleClefSize.height );
+  [trebleClef drawInRect:clefRect withAttributes:textAttributes];
 }
 
 @end

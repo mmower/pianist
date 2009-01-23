@@ -15,10 +15,7 @@
 
 @interface AppController ()
 
-- (void)resetCounter;
-- (void)incrementCounter;
 - (void)playRound;
-
 - (void)roundIsOver;
 - (void)gameIsOver;
 
