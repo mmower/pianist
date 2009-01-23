@@ -22,11 +22,12 @@ static unichar fclef[2] = {0xD834,0xDD22};
 }
 
 - (void)awakeFromNib {
-  textAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:@"Apple Symbols" size:96],NSFontAttributeName,nil];
-  trebleClef     = [NSString stringWithCharacters:gclef length:2];
-  trebleClefSize = [trebleClef sizeWithAttributes:textAttributes];
-  bassClef       = [NSString stringWithCharacters:fclef length:2];
-  bassClefSize   = [bassClef sizeWithAttributes:textAttributes];
+  trebleClefAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:@"Apple Symbols" size:96],NSFontAttributeName,nil];
+  trebleClef           = [NSString stringWithCharacters:gclef length:2];
+  trebleClefSize       = [trebleClef sizeWithAttributes:trebleClefAttributes];
+  bassClefAttributes   = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:@"Apple Symbols" size:56],NSFontAttributeName,nil];
+  bassClef             = [NSString stringWithCharacters:fclef length:2];
+  bassClefSize         = [bassClef sizeWithAttributes:bassClefAttributes];
 }
 
 @dynamic showNote;
@@ -115,8 +116,13 @@ static unichar fclef[2] = {0xD834,0xDD22};
   }
   
   // Draw Treble Clef
-  NSRect clefRect = NSMakeRect( bounds.origin.x + (trebleClefSize.width/2), (8*spacing)-(trebleClefSize.height/8), trebleClefSize.width, trebleClefSize.height );
-  [trebleClef drawInRect:clefRect withAttributes:textAttributes];
+  NSRect clefRect;
+  
+  clefRect = NSMakeRect( bounds.origin.x + (trebleClefSize.width/2), (8*spacing)-(trebleClefSize.height/8), trebleClefSize.width, trebleClefSize.height );
+  [trebleClef drawInRect:clefRect withAttributes:trebleClefAttributes];
+  
+  clefRect = NSMakeRect( bounds.origin.x + (bassClefSize.width/2), (4*spacing)-(bassClefSize.height/8), bassClefSize.width, bassClefSize.height );
+  [bassClef drawInRect:clefRect withAttributes:bassClefAttributes];
 }
 
 @end

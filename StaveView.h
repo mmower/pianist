@@ -12,9 +12,10 @@
 @interface StaveView : NSView {
   NSString      *trebleClef;
   NSSize        trebleClefSize;
+  NSDictionary  *trebleClefAttributes;
   NSString      *bassClef;
   NSSize        bassClefSize;
-  NSDictionary  *textAttributes;
+  NSDictionary  *bassClefAttributes;
   BOOL          showNote;
   BOOL          nameNote;
   int           note;
