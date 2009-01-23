@@ -20,6 +20,7 @@
 - (void)playRound;
 
 - (void)roundIsOver;
+- (void)gameIsOver;
 
 @end
 
@@ -64,7 +65,7 @@
 - (void)playRound {
   notePlayed = NO;
   currentNote = 36 + ( random() % 25 );
-  [self resetCounter];
+  [self setCounter:0];
   [stave setNote:currentNote];
   
   timer = [NSTimer scheduledTimerWithTimeInterval:0.1
@@ -74,14 +75,6 @@
                                           repeats:YES];
 }
 
-- (void)resetCounter {
-  [self setCounter:0];
-}
-
-- (void)incrementCounter {
-  [self setCounter:[self counter]+1];
-}
-
 - (void)check:(NSTimer *)notifyingTimer {
   if( notePlayed ) {
     [self roundIsOver];
@@ -89,15 +82,36 @@
     if( [self counter] == MAX_COUNTER ) {
       [self roundIsOver];
     } else {
-      [self incrementCounter];
+      [self setCounter:[self counter]+1];
     }
   }
 }
 
 - (void)roundIsOver {
   [timer invalidate];
-  NSBeep();
+  
+  if( notePlayed ) {
+    if( playedNote == currentNote ) {
+      [self setScore:[self score]+[self counter]];
+    } else {
+      NSBeep();
+    }
+  } else {
+    NSBeep();
+  }
+  
   [stave setShowNote:NO];
+  
+  if( [self currentRound] == 10 ) {
+    [self gameIsOver];
+  } else {
+    [self setCurrentRound:[self currentRound]+1];
+    [self performSelector:@selector(playRound) withObject:nil afterDelay:2.0];
+  }
+}
+
+- (void)gameIsOver {
+  NSBeep();
 }
 
 - (void)noteReceived:(int)noteNumber withVelocity:(int)velocity {

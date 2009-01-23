@@ -8,7 +8,6 @@
 
 #import "StaveController.h"
 
-
 @implementation StaveController
 
 @end
