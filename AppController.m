@@ -96,17 +96,20 @@
 - (void)roundIsOver {
   [timer invalidate];
   
-  [stave setShowNoteName:YES];
-  
   if( notePlayed ) {
     if( playedNote == currentNote ) {
+      [stave setIsCorrect:YES];
       [self setScore:[self score]+[self counter]];
     } else {
+      [stave setIsCorrect:NO];
       NSBeep();
     }
   } else {
+    [stave setIsCorrect:NO];
     NSBeep();
   }
+  
+  [stave setShowNoteName:YES];
   
   if( [self currentRound] == 10 ) {
     [self gameIsOver];

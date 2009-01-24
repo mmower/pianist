@@ -17,6 +17,7 @@
   NSDictionary  *bassClefAttributes;
   BOOL          showNote;
   BOOL          showNoteName;
+  BOOL          isCorrect;
   NSArray       *noteNames;
   NSDictionary  *noteAttributes;
   int           note;
@@ -24,6 +25,7 @@
 
 @property BOOL showNote;
 @property BOOL showNoteName;
+@property BOOL isCorrect;
 @property int note;
 
 @end

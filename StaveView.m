@@ -66,6 +66,8 @@ static unichar fclef[2] = {0xD834,0xDD22};
   [self setNeedsDisplay:YES];
 }
 
+@synthesize isCorrect;
+
 @dynamic note;
 
 - (int)note {
@@ -150,7 +152,11 @@ static unichar fclef[2] = {0xD834,0xDD22};
   NSBezierPath *path = [NSBezierPath bezierPathWithRoundedRect:NSMakeRect( namePosition.x, namePosition.y, nameSize.width * 1.2, nameSize.height )
                                                        xRadius:nameSize.width/16
                                                        yRadius:nameSize.height/16];
-  [[NSColor whiteColor] set];
+  if( isCorrect ) {
+    [[NSColor whiteColor] set];
+  } else {
+    [[NSColor redColor] set];
+  }
   [path fill];
   [[NSColor blackColor] set];
   [path stroke];
