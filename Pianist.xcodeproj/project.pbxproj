@@ -53,6 +53,7 @@
 		C9B2CBE70F2A57AA00AAABF8 /* PYMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PYMIDI.framework; path = frameworks/PYMIDI.framework; sourceTree = "<group>"; };
 		C9B2CC040F2A5F6900AAABF8 /* MIDIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIController.h; sourceTree = "<group>"; };
 		C9B2CC050F2A5F6900AAABF8 /* MIDIController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDIController.m; sourceTree = "<group>"; };
+		C9B2CD750F2B415000AAABF8 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +128,7 @@
 			children = (
 				32CA4F630368D1EE00C91783 /* Pianist_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				C9B2CD750F2B415000AAABF8 /* Preferences.h */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";

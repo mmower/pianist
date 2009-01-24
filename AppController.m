@@ -8,10 +8,14 @@
 
 #import <PYMIDI/PYMIDI.h>
 
+#import "Preferences.h"
 #import "AppController.h"
 #import "MIDIController.h"
 
 #define MAX_COUNTER (100)
+
+NSString * const UsedMidiDeviceKey = @"UsedMidiDevice";
+NSString * const LastMidiDeviceKey = @"LastMidiDevice";
 
 @interface AppController ()
 
@@ -22,6 +26,14 @@
 @end
 
 @implementation AppController
+
++ (void)initialize {
+  NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
+  
+  [defaultValues setObject:[NSNumber numberWithBool:NO] forKey:UsedMidiDeviceKey];
+  
+  [[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
+}
 
 @synthesize counter;
 @synthesize stave;
@@ -55,9 +67,14 @@
   }
   
   for( PYMIDIEndpoint *source in [[PYMIDIManager sharedInstance] realSources] ) {
-    NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[source displayName] action:@selector(setMidiSource:) keyEquivalent:@""];
+    NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%@",[source name]] action:@selector(setMidiSource:) keyEquivalent:@""];
     [item setTarget:self];
     [item setRepresentedObject:source];
+    
+    if( [source uniqueID] == [[NSUserDefaults standardUserDefaults] integerForKey:LastMidiDeviceKey] ) {
+      [item setState:NSOnState];
+    }
+    
     [midiMenu addItem:item];
   }
 }

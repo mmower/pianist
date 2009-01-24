@@ -9,10 +9,12 @@
 #import <CoreMIDI/CoreMIDI.h>
 #import <PYMIDI/PYMIDI.h>
 
+#import "Preferences.h"
 #import "MIDIController.h"
 
 @interface MIDIController ()
 
+- (void)setSourceWithUniqueID:(NSInteger)uniqueID;
 - (void)processMIDIPacketList:(MIDIPacketList *)packetList sender:(id)sender;
 - (void)handleMIDIMessage:(Byte*)message ofSize:(int)size;
 
@@ -23,6 +25,10 @@
 - (id)initWithDestination:(id)theDestination {
   if( ( self = [self init] ) ) {
     destination = theDestination;
+    
+    if( [[NSUserDefaults standardUserDefaults] boolForKey:UsedMidiDeviceKey] ) {
+      [self setSourceWithUniqueID:[[NSUserDefaults standardUserDefaults] integerForKey:LastMidiDeviceKey]];
+    }
   }
   
   return self;
@@ -34,9 +40,22 @@
   return source;
 }
 
+- (void)setSourceWithUniqueID:(NSInteger)uniqueID {
+  for( PYMIDIEndpoint *endpoint in [[PYMIDIManager sharedInstance] realSources] ) {
+    if( [endpoint uniqueID] == uniqueID ) {
+      [self setSource:endpoint];
+      break;
+    }
+  }
+}
+
 - (void)setSource:(PYMIDIEndpoint *)newSource {
   [source removeReceiver:self];
   source = newSource;
+  
+  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:UsedMidiDeviceKey];
+  [[NSUserDefaults standardUserDefaults] setInteger:[newSource uniqueID] forKey:LastMidiDeviceKey];
+  
   [source addReceiver:self];
 }
 
