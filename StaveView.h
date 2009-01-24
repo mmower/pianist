@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface StaveView : NSView {
   NSString      *trebleClef;
   NSSize        trebleClefSize;
