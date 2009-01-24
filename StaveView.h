@@ -16,12 +16,14 @@
   NSSize        bassClefSize;
   NSDictionary  *bassClefAttributes;
   BOOL          showNote;
-  BOOL          nameNote;
+  BOOL          showNoteName;
+  NSArray       *noteNames;
+  NSDictionary  *noteAttributes;
   int           note;
 }
 
 @property BOOL showNote;
-@property BOOL nameNote;
+@property BOOL showNoteName;
 @property int note;
 
 @end
