@@ -71,6 +71,7 @@
   notePlayed = NO;
   currentNote = 36 + ( random() % 25 );
   [self setCounter:0];
+  [stave setShowNoteName:NO];
   [stave setNote:currentNote];
   
   timer = [NSTimer scheduledTimerWithTimeInterval:0.1
@@ -95,6 +96,8 @@
 - (void)roundIsOver {
   [timer invalidate];
   
+  [stave setShowNoteName:YES];
+  
   if( notePlayed ) {
     if( playedNote == currentNote ) {
       [self setScore:[self score]+[self counter]];
@@ -104,8 +107,6 @@
   } else {
     NSBeep();
   }
-  
-  [stave setShowNote:NO];
   
   if( [self currentRound] == 10 ) {
     [self gameIsOver];
