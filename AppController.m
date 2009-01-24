@@ -33,6 +33,14 @@
   [self rescanMidi:nil];
 }
 
+- (BOOL)validateMenuItem:(NSMenuItem *)item {
+  if( [item action] == @selector(startGame:) ) {
+    return [midiController source] != nil;
+  } else {
+    return YES;
+  }
+}
+
 - (IBAction)startGame:(id)sender {
   [self setScore:0];
   [self setCurrentRound:1];
